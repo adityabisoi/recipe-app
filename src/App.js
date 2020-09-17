@@ -15,7 +15,7 @@ const App = () => {
   const getRecipes = () => {
     fetch(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
     .then(response=>response.json())
-    .then(data=>setRecipes(data.hits))
+    .then(data=>{setRecipes(data.hits);console.log(data)})
   }
 
   return(
@@ -24,8 +24,8 @@ const App = () => {
         <input className='search-bar' type='text'/>
         <button className='search-button' type='submit'>Search</button>
       </form>
-      {recipes.map(recipe=>(
-        <Recipe />
+      {recipes.map(data=>(
+        <Recipe title={data.recipe.label} calories={data.recipe.calories} image={data.recipe.image}/>
       ))}
     </div>
   )
